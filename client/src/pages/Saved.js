@@ -17,7 +17,10 @@ function Saved() {
   // const {id} = useParams()
   useEffect(() => {
     API.getBooks()
-      .then(res => console.log(res))
+      .then(res => {
+        setBook(res.data);
+        console.log(res.data);
+      })
       .catch(err => console.log(err));
   }, [])
 
@@ -33,21 +36,30 @@ function Saved() {
         <h2>
           Saved Books
         </h2>
-        <div className="card mb-3">
-          <div className="row no-gutters">
-            <div className="col-md-4">
-              <img src="..." className="card-img" alt="..."></img>
-            </div>
-            <div className="col-md-8">
-              <div className="card-body">
-                <h5 className="card-title">Book title</h5>
-                <p className="card-text"><small className="text-muted">Authors</small></p>
-                <p className="card-text">Book description: This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <a href="#link" className="btn btn-light" role="button">View Book</a>
-              </div>
-            </div>
-          </div>
-        </div>
+
+        {book.length ? (
+                <List>
+                  {book.map(book => (
+                    <div className="card mb-3">
+                      <div className="row no-gutters">
+                        <div className="col-md-4">
+                          <img src={book.image} className="card-img" alt="..."></img>
+                        </div>
+                        <div className="col-md-8">
+                          <div className="card-body">
+                            <h5 className="card-title">{book.title}</h5>
+                            <p className="card-text"><small className="text-muted">{book.author}</small></p>
+                            <p className="card-text">{book.description}</p>
+                            <a href={book.link} className="btn btn-light" role="button" target="_blank">View Book</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </List>
+                ) : (
+                <h3>No Results to Display</h3>
+              )}
       </Col>
     </Row>
   </Container>
