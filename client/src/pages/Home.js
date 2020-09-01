@@ -27,10 +27,12 @@ function Home() {
   };
 
   // Deletes a book from the database with a given id, then reloads books from the db
-  function deleteBook(id) {
-    API.deleteBook(id)
-      .then(res => loadBooks())
-      .catch(err => console.log(err));
+  function addBook(event) {
+    event.preventDefault();
+    console.log(event.target);
+    // API.saveBook()
+    //   .then(res => console.log("hola "+res)/*loadBooks()*/)
+    //   .catch(err => console.log(err));
   }
 
   // Handles updating component state when the user types into the input field
@@ -96,7 +98,7 @@ function Home() {
                             <p className="card-text">{book.volumeInfo.description}</p>
                             <a href={book.volumeInfo.previewLink} className="btn btn-light" role="button" target="_blank">View Book</a>
                             <FormBtn
-                              onClick={handleFormSubmit}
+                              onClick={addBook}
                             >
                             Save Book
                             </FormBtn>
